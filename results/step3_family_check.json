@@ -1,0 +1,121 @@
+{
+  "rate": 0.02,
+  "n_events": 4000,
+  "s1_rates": {
+    "poisson": {
+      "n": 4000,
+      "rate": 0.020209476307265627,
+      "rel_err": 0.010473815363281312
+    },
+    "renewal": {
+      "n": 4000,
+      "rate": 0.020347336692660496,
+      "rel_err": 0.017366834633024755
+    },
+    "hawkes": {
+      "n": 4000,
+      "rate": 0.019764866561133267,
+      "rel_err": 0.011756671943336655
+    },
+    "lrd": {
+      "n": 3573,
+      "rate": 0.017866102795162302,
+      "rel_err": 0.1066948602418849
+    }
+  },
+  "s2_renewal_cv": {
+    "0.5": {
+      "cv_measured": 2.1273631968021274,
+      "cv_theory": 2.23606797749979
+    },
+    "1.0": {
+      "cv_measured": 0.9842087371865926,
+      "cv_theory": 1.0
+    },
+    "2.0": {
+      "cv_measured": 0.5164009936600087,
+      "cv_theory": 0.5227232008770631
+    }
+  },
+  "s3_hawkes": {
+    "0.3": {
+      "fano": 1.5163333333333333,
+      "acf1": 0.05168312822230256,
+      "branching": 0.3,
+      "n": 6000
+    },
+    "0.6": {
+      "fano": 2.857666666666667,
+      "acf1": 0.17660292386705306,
+      "branching": 0.6,
+      "n": 6000
+    }
+  },
+  "s4_lrd": {
+    "0.6": {
+      "target": 0.6,
+      "measured": 0.5630190133738738,
+      "n": 6000
+    },
+    "0.8": {
+      "target": 0.8,
+      "measured": 0.6153296812595102,
+      "n": 5160
+    }
+  },
+  "s5_discriminability": {
+    "poisson": {
+      "cv": 1.01200925333256,
+      "fano": 1.082496530668887,
+      "acf1": 0.01375301973249593,
+      "H_dfa": 0.53637131679627
+    },
+    "renewal_k05": {
+      "cv": 2.194250932405378,
+      "fano": 3.659163197335554,
+      "acf1": 0.00408742265727018,
+      "H_dfa": 0.5215644159099229
+    },
+    "renewal_k20": {
+      "cv": 0.5325286132992265,
+      "fano": 0.3058298640022204,
+      "acf1": 0.008530143152125216,
+      "H_dfa": 0.548215684982444
+    },
+    "hawkes_n06": {
+      "cv": 1.3983229951913205,
+      "fano": 2.8834965306688867,
+      "acf1": 0.1538544183045243,
+      "H_dfa": 0.6336359136755745
+    },
+    "lrd_H08": {
+      "cv": 2.6923915545333235,
+      "fano": 32.57787737048855,
+      "acf1": 0.02376044950345012,
+      "H_dfa": 0.6634862668282513
+    }
+  },
+  "passed": [
+    "poisson rate within 25%",
+    "renewal rate within 25%",
+    "hawkes rate within 25%",
+    "lrd rate within 25%",
+    "renewal k=0.5 CV matches",
+    "renewal k=1.0 CV matches",
+    "renewal k=2.0 CV matches",
+    "k=1 degenerates to Poisson (CV~1)",
+    "hawkes n=0.3 Fano > 1",
+    "hawkes n=0.3 ACF1 > 0",
+    "hawkes n=0.6 Fano > 1",
+    "hawkes n=0.6 ACF1 > 0",
+    "larger branching -> larger Fano",
+    "lrd H=0.6 DFA close",
+    "lrd H=0.8 DFA close",
+    "H=0.8 estimate > H=0.6",
+    "Poisson vs renewal_k05 by CV",
+    "Poisson vs renewal_k20 by CV",
+    "Poisson vs hawkes by Fano",
+    "Hawkes vs LRD by ACF1"
+  ],
+  "failed": []
+}

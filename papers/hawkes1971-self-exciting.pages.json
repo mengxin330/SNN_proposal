@@ -1,0 +1,45 @@
+{
+  "pageCount": 8,
+  "pages": [
+    {
+      "page": 1,
+      "start": 0,
+      "end": 1873
+    },
+    {
+      "page": 2,
+      "start": 1874,
+      "end": 3425
+    },
+    {
+      "page": 3,
+      "start": 3427,
+      "end": 5072
+    },
+    {
+      "page": 4,
+      "start": 5074,
+      "end": 6800
+    },
+    {
+      "page": 5,
+      "start": 6802,
+      "end": 8309
+    },
+    {
+      "page": 6,
+      "start": 8310,
+      "end": 9269
+    },
+    {
+      "page": 7,
+      "start": 9271,
+      "end": 11227
+    },
+    {
+      "page": 8,
+      "start": 11228,
+      "end": 13844
+    }
+  ]
+}

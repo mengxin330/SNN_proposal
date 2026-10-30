@@ -1,0 +1,127 @@
+{
+  "config": {
+    "rate": 1.0,
+    "n_events": 400000,
+    "seed": 0,
+    "service_times": [
+      0.5,
+      0.7,
+      0.85
+    ],
+    "capacity_validate": null,
+    "capacity_observe": 32,
+    "warmup_window": 1000,
+    "warmup_tol": 0.05,
+    "warmup_min_windows": 10,
+    "warmup_max_frac": 0.5,
+    "n_batches": 10,
+    "max_n_se": 2.0,
+    "results_dir": "results",
+    "mesh_n": 8,
+    "vc_count": 16,
+    "vc_depth": 8,
+    "hops_cycles": 3,
+    "n_output_ports": 5,
+    "n_end": 1,
+    "n_payload": 1,
+    "n_header_max": 3,
+    "lambda_s_targets": [
+      0.02,
+      0.035,
+      0.05
+    ],
+    "rho_targets": [
+      0.2,
+      0.6,
+      0.8
+    ],
+    "events_per_source": 10000,
+    "sigma_ref": 10.0,
+    "mesh_n_ref": 30,
+    "alpha_ee": 0.11,
+    "multicast_mode": "dual_path",
+    "quantize_arrivals": false
+  },
+  "part_a": [
+    {
+      "service_time": 0.5,
+      "rho": 0.5,
+      "theory": 0.25,
+      "simulated": 0.2517228965848199,
+      "se": 0.0016605099377964194,
+      "error": 0.0017228965848198885,
+      "n_se": 1.0375707760630806,
+      "warmup_K": 0,
+      "n_effective": 400000,
+      "dropped": 0,
+      "peak": 14
+    },
+    {
+      "service_time": 0.7,
+      "rho": 0.7,
+      "theory": 0.8166666666666664,
+      "simulated": 0.8211270325918549,
+      "se": 0.007697071178271173,
+      "error": 0.004460365925188503,
+      "n_se": 0.5794887200445948,
+      "warmup_K": 0,
+      "n_effective": 400000,
+      "dropped": 0,
+      "peak": 17
+    },
+    {
+      "service_time": 0.85,
+      "rho": 0.85,
+      "theory": 2.4083333333333328,
+      "simulated": 2.4057221239821,
+      "se": 0.04169418488481441,
+      "error": -0.002611209351232713,
+      "n_se": 0.06262766278910398,
+      "warmup_K": 0,
+      "n_effective": 400000,
+      "dropped": 0,
+      "peak": 31
+    }
+  ],
+  "part_b": [
+    {
+      "service_time": 0.5,
+      "rho": 0.5,
+      "drop_rate": 0.0,
+      "peak": 14,
+      "p50_occ": 1.0,
+      "p95_occ": 3.0,
+      "p99_occ": 4.0,
+      "p95": 1.0302936592386684,
+      "p99": 1.670545173852006,
+      "mean_wait": 0.2517228965848199,
+      "n_accepted": 400000
+    },
+    {
+      "service_time": 0.7,
+      "rho": 0.7,
+      "drop_rate": 0.0,
+      "peak": 17,
+      "p50_occ": 1.0,
+      "p95_occ": 5.0,
+      "p99_occ": 7.0,
+      "p95": 2.8818064454268093,
+      "p99": 4.4941243209676776,
+      "mean_wait": 0.8211270325918549,
+      "n_accepted": 400000
+    },
+    {
+      "service_time": 0.85,
+      "rho": 0.85,
+      "drop_rate": 0.0,
+      "peak": 31,
+      "p50_occ": 2.0,
+      "p95_occ": 10.0,
+      "p99_occ": 14.0,
+      "p95": 7.6792645314490064,
+      "p99": 11.558193024364302,
+      "mean_wait": 2.4057221239821,
+      "n_accepted": 400000
+    }
+  ]
+}

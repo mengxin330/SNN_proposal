@@ -1,0 +1,107 @@
+{
+  "config": {
+    "rate": 1.0,
+    "n_events": 400000,
+    "seed": 0,
+    "service_times": [
+      0.5,
+      0.7,
+      0.85
+    ],
+    "capacity_validate": null,
+    "capacity_observe": 32,
+    "warmup_window": 1000,
+    "warmup_tol": 0.05,
+    "warmup_min_windows": 10,
+    "warmup_max_frac": 0.5,
+    "n_batches": 10,
+    "max_n_se": 2.0,
+    "results_dir": "results",
+    "make_plots": true,
+    "mesh_n": 8,
+    "vc_count": 16,
+    "vc_depth": 8,
+    "hops_cycles": 3,
+    "n_output_ports": 5,
+    "n_end": 1,
+    "n_payload": 1,
+    "n_header_max": 3,
+    "lambda_s_targets": [
+      0.02,
+      0.035,
+      0.05
+    ],
+    "rho_targets": [
+      0.2,
+      0.6,
+      0.8
+    ],
+    "events_per_source": 10000,
+    "sigma_ref": 10.0,
+    "mesh_n_ref": 30,
+    "alpha_ee": 0.11,
+    "multicast_mode": "dual_path",
+    "quantize_arrivals": false
+  },
+  "section4": [
+    {
+      "lambda_s": 0.02,
+      "T": 11533.118736187951,
+      "n_msg": 19510,
+      "util_mean": 0.11257714887873856,
+      "util_max": 0.3212487519420628,
+      "mean_delay": 20.650295866370783,
+      "p95_delay": 43.46134629192075,
+      "mean_wait": 1.9124178550945155,
+      "drop_rate": 0.0,
+      "peak_occ": 5
+    },
+    {
+      "lambda_s": 0.035,
+      "T": 6466.4722297862445,
+      "n_msg": 19423,
+      "util_mean": 0.19930109559019965,
+      "util_max": 0.5469752090958749,
+      "mean_delay": 23.505674207061517,
+      "p95_delay": 51.53485310125736,
+      "mean_wait": 4.834665609007664,
+      "drop_rate": 0.0,
+      "peak_occ": 9
+    },
+    {
+      "lambda_s": 0.05,
+      "T": 4559.806802711796,
+      "n_msg": 19423,
+      "util_mean": 0.28429589916595754,
+      "util_max": 0.8028848936807454,
+      "mean_delay": 31.780928096590632,
+      "p95_delay": 79.38968971680697,
+      "mean_wait": 13.00607354271121,
+      "drop_rate": 0.0,
+      "peak_occ": 16
+    }
+  ],
+  "section5": {
+    "mean_hops": 5.337854500616523,
+    "zero_load_delay": 19.499439122848575,
+    "hotspot_ratio": 1.4829206146986225
+  },
+  "passed": [
+    "1 跳延迟 = 5",
+    "2 跳延迟 = 8",
+    "5 跳延迟 = 17",
+    "稀疏到达无等待",
+    "单链路 wait ≡ 单队列 wait",
+    "k=1 时 dual-path 消息数 = 1",
+    "k=1 时 dual-path ≡ 单播",
+    "接受 + 丢弃 = 总数",
+    "链路穿越 = Σ 路径长度",
+    "delay = wait + 3·hops + (L-1)",
+    "平均延迟随负载单调不减",
+    "最低负载下几乎无排队",
+    "最低负载下无丢弃",
+    "零负载延迟 ≈ 3·hops + (L-1)",
+    "热点系数在 1.2–1.6 之间"
+  ],
+  "failed": []
+}

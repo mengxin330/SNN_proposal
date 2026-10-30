@@ -1,0 +1,258 @@
+Biometrika (1971), 58, 1, p. 83 8 3
+Printed in Great Britain
+Spectra of some self-exciting and mutually exciting
+point processes
+BY ALAN G. HAWKES
+University of Durham
+SUMMAKY
+In recent years methods of data analysis for point processes have received some attention,
+for example, by Cox & Lewis (1966) and Lewis (1964). In particular Bartlett (1963a, b)
+has introduced methods of analysis based on the point spectrum. Theoretical models are
+relatively sparse. In this paper the theoretical properties of a class of processes with particular reference to the point spectrum or corresponding covariance density functions are
+discussed. A particular result is a self-exciting process with the same second-order properties
+as a certain doubly stochastic process. These are not distinguishable by methods of data
+analysis based on these properties.
+1. INTRODUCTION
+Bartlett (1963a, b) considers a stationary point process N(t), representing the cumulative
+number of events up to time t, for which
+A = E{dN(t)}ldt
+is constant and the covariance density
+/I(T) = E{dN(t + T) dN(t)}j{dtf -A2 (1)
+does not depend on t. For r < 0, /I{-T) = /I(T), but, for T = 0, E[{dN(t)}2] = E{dN{t)} if
+events cannot occur multiply, so that the complete covariance density becomes
+I^\T) = \8{T)+[I{T), (2)
+where S(T) is the Dirac delta function and /A(T) is continuous at the origin. The complete
+spectral density function for N(t) is defined by
+h { J L ) dr) •= h Jl,e~^<c)(T)dT = h {A+JL e">(T) dr)
+In particular for the Poisson process /I(T) = 0 and/(w) = A/(27r).
+This may easily be extended to the simultaneous study of a number of point processes
+Nr(t) (r = 1,..., k) with covariance densities
+firs(r) = E{dNr(t + r) dNs(t)}l(dt)2 -KK (4)
+where A, = E{dNr{t)}{dt. Now /in( — T) = /isr(r) and delta functions occur at the origin
+when r = s. Then the complete covariance density matrix is
+, (5) and the spectral density matrix
+F(co) = ± jdiag (A) + J " ^ ™ ^ ) drj (6)
+is Hermitian.
+2. A SELF-EXCITING POINT PROCESS
+We consider a point process N(t) such that
+•px{AN(t) = l\N(s)(s < t)} = A(<) At + o(At),
+Vv{AN(t) > l\N(s)(s < t)} = o(At).
+In the doubly stochastic process (Bartlett, 19636), A(t) is assumed to be a stationary random process and the conditioning event is written as {N(s) (s ^t): A(s) (— oo < s < oo)}, so
+that we could think of A(t) being determined for all t before the N(t) process is considered.
+Here in contrast we shall assume that the process is self-exciting in the sense that A(t) may
+be written
+= v+l g{t-u)dN(u),
+J - 0 0
+(8)
+which together with (7) defines the process. In effect one may think of this as a self-exciting
+shot process in which the current intensity of events is determined by events in the past.
+This will be a largely local effect if g(v) decays rapidly but may contain longer term effects
+if g(v) has a hump, remote from the origin. In principle A(t) should always remain positive
+but models for which the probability of negative values is small may be useful approximations. We, therefore, assume g(v) ^ 0 and g{v) = 0 (v < 0).
+If we assume stationarity, then from (8) we have
+A = E{A(t)} = v + A I g(t-u)du, (9)
+J - o o
+or
+A =
+Thus we must have v > 0 and /•oo
+< 1.
+/•oo
+g{v)dv
+Jo
+To obtain an equation for the covariance density we observe that, for T > 0,
+= E [ ^ {„+J%(t + T-«)dff(«)}] - A«
+= g(T — v)/i'fi\v)dv.
+J —oo
+Applying (2), we find, for r > 0,
+li(j) = A<7(T)+ g{T-v)(i{v)dv. (10)
+J - 0 0
+
+Spectra of some self-exciting and mutally exciting point processes 85
+This integral equation in general is difficult to solve analytically. Since /I(T) is symmetric
+the equation may be written as
+1*00 CT
+/I(T) = Agr(r)+ g(r + v)fi{v)dv+ g{r-v)(i{v)dv (T > 0). (11)
+Jo Jo
+Standard techniques exist for the numerical solution of integral equations (Mayers, 1962).
+In (11) the single integral of (10) has been decomposed into two separate integrals. This is
+convenient as different correction terms are appropriate for the numerical integration of
+these two types. A finite difference method which decomposes the interval (0, oo) into disjoint intervals with more pivot points near the origin would be appropriate.
+An analytic solution may be obtained when g(v) decays exponentially.
+3. THE CASE OF EXPONENTIAL DECAY
+If we consider the special case
+9(V) = S o,e-4" (v > 0), (12)
+with
+then, taking the Laplace transform of (11), we find
+j l P
+and so
+*(«) = —/»*(«) =
+1 - S
+If we put s = /?r (r = 1,..., k) in this equation, we obtain k linear equations in the k unknowns fi*(ftr) which can easily be solved. Equation (13) will then give a well determined
+function.
+The spectrum of this process is then easily obtained since, from (3), we see
+^ -»o>)}. (14)
+If we multiply the numerator and denominator in (13) by II ( ^ + s) we see that
+/**(«) = Pi(s)IPi(s),
+where px(s) and pz(s) are polynomials of degree {k- 1) and k, respectively. The general form
+of /I(T) on inversion will thus be
+Mr) = S 7ye-*iT (T > 0),
+where — Tfj are the roots of p2(s).
+In the case k = 1 when #(t>) = ae"> (v > 0), we find that ji*(ft) = |aA/(y?-a). Therefore,
+(15)
+a ) '
+
+Then
+^ ) ) T ( r > 0 ) , (16)
+where, from (9), A = v/?/(y?-a).
+Now it is known (Bartlett, 19636) that for a doubly stochastic process the covariance
+density fi{r) is identical with the covariance function of A(t). Thus the second-order properties of this self-exciting process as exhibited in (16) and (17) could equally well be obtained
+from a doubly stochastic process where A(t) has covariance function (16). Such a process can
+be generated in the form
+= 7+1
+J -a
+A(t) = y+\ e-V-a)»-">dz(«), (18)
+J
+where z(u) is a process of orthogonal increments with
+E{dz(u)} = m du,
+va,x{dz(u)} = a
+where y and m are any constants satisfying A = y + ra/(/?—a). It is to be expected that the
+result (13) could also be obtained from a doubly stochastic process where A(t) has the form
+A(t) fc n
+= y+ £ e3 = lJ-co
+for a suitable choice of parameters, where z,(w) are mutually orthogonal processes of orthogonal increments.
+Thus it is clear that given a set of data from a point process we cannot expect to discriminate between a self-exciting and a doubly stochastic process on the basis of the estimated point spectrum, covariance density or other equivalent functions such as the variance-time function (Cox & Lewis, 1966, p. 72). Bartlett (1964) found a clustering process
+with the same second-order properties as a two-dimensional doubly stochastic process;
+indeed it was completely statistically identical. Vere-Jones (1970) gives a similar one-dimensional example.
+4. SOME MUTUALLY EXCITING PBOCESSES
+Consider k point processes Nr(t) (r = 1,..., k) forming a vector process N(<) such that
+r(0 = l\N(s)(s < t)} =
+0} = (M)
+independently for each r, where
+^ ( O - ^ + S P 9rs(t-u)dNs(u)
+s=l J-oo
+or
+A(<) = v + f G(t-u) dN(u). (20)
+J —00
+
+Spectra of some self-exciting and mutually exciting point processes 87
+The vector of stationary densities is thus
+A = ( I - r ) - 1 v , (21)
+where
+T = f"G(t;)cto,
+Jo
+provided A > 0. For T > 0
+(i(r) = E{dN(t + T) dN'(t)}l(dt2) - AA'
+= E [(v + f+T G(< + T - «) dN(u)\ ^ 7 ^ 1 - A A'H J -o> ) at ]
+= \ G(j-v)\&\v)dv.
+J - C O
+Thus, by (5), we have, for T > 0,
+JX(T) = G(T) diag (A) + [ G(T - v) \x{v) dv. (22)
+J —CO
+In principle this equation may be solved numerically in the same way as the one-dimensional case, but of course the labour involved increases rapidly and accuracy suffers, except
+for special cases; see §5.
+In the exponential case n
+G(v) = 2 a(m)e-^m)",
+we may take the element by element Laplace transform of (22), and using ji( — T) = [L'(T),
+we find
+p.*(5) = {I - G*{s)}~1 \G*{S) diag (A) + S <x<"V{/?<"»}/{/?<m> + s}] . (23)
+L m=l J
+By inserting s = /?(m) (m = 1, ...,n) in (23), we obtain a set of linear equations for the
+unknown constants /^-{/?(m)}, the solution of which may be substituted into (23) to give the
+complete solution for (i*(s). The spectral matrix is then given by
+F(w) = — {diag (A) + n*(i«) + {x.*( - i(o)}. (24)
+From (23) we may infer the general form
+(r > 0),
+where the elements of Tr(r) are polynomials in r, usually constant.
+Some results may be obtained explicitly in simple cases. For example, in the bivariate
+case, k = 2, with simple exponential decays we will assume that for i = 1,2 and,?' = 1,2
+9ijiv) = ai 3 e-^* (v > 0).
+Hence
+Then (23) yields
+flf£(«)], (25) where
+£ ( fin) + &{*) /«
+0&(«) {?&(«) Ax + ?
+n{s) /4i(An{s) /4i(An) +fl&(«)/ 4 ( A12)}
++ <&(«) &&(«) Aa +flr£(«)/«£(/?21)+^S(«)/«S(/?2s)}. (26)
+The values of h22(s) and ^2i(5) a r e obtained from these by interchanging suffices.
+Case 1: Non-interacting. If a12 = a21 = 0, the cross-covariances are zero and each process is
+self-exciting. Then
+as in (15).
+Case 2: One-way interaction. If a21 = 0, the behaviour of Nt(t) does not affect the future of
+the N2(t) process which will be a simple self-exciting process, and
+The result is particularly simple if a22 = 0 also, so that N2(t) is just a Poisson process. Then
+substituting in (25) and (26) we find
+/4L(S) = /*£(«) = 0.
+— * ' " ' (27)
+Solving for /tu(yffu), we find
+Then inversion of (27) yields, for T > 0,
+= i«22 = 0,
+which has the expected general form.
+We observe that
+(i) if a12 = 0, (28) reduces to (16);
+(ii) if a n = 0, then N^t) is 'simply excited' by the N2(t) processes. Then equation (28)
+gives
+
+Spectra of some self-exciting and mutually exciting point processes 89
+This agrees with the result for the doubly stochastic process which in fact it is; see (16).
+As mentioned in § 3, filx(j) is also consistent with a self-excited process. In this case the selfexcited and simply-excited processes may be discriminated by looking at the cross-covariance /I12(T).
+5. PROCESS WITH KNOWN EXCITER
+If the interaction between two processes is one-way in the sense that
+pr[A 1(^(5),N2(s)}(-oo < s ^ t)] = pr{.4|IV2(s)(-oo < s < t)}
+for any set A in the Borel field of the process {iV2(s), t ^ s}, i.e. the future behaviour of N2(s)
+is independent of the past of Nt{s) when the past of N2(s) is known, then it is possible to
+allow N2(t) to behave in a more general manner.
+Suppose .AT^) is a point process with known spectrum/22(a>) and that
+pr{AiV1(«) = 11-^(5) (-00 < s < t), N2(s)(-co<s <co)} = A1(t)M + o(M), (29)
+where
+Ai(O = v1 + gn(t ~ u) dN-iiu) + g12(t - u) dN2(u).
+J —00 J —00
+Notice that the essential difference between this and the previous theory lies in the conditioning event (29).
+As before we have, for r > 0,
++\ gii(r-v)/i11(v)dv+\ g12(r-v)/i21(v)dv. (30)
+However, by virtue of the conditioning event in (29), the similar equation
+= gu(T-u)fi12(u)du+\ g12(T-u)/i2c2\u)du (31)
+holds for all values of r.
+Hence on taking transforms we find the cross-spectrum
+The value of /I12(T) may be obtained by inversion, probably numerically, and we note
+/*2i(T) = /*i2( — T) a n ( l /21M = fiz( — w)- The third term in (30) is thus a known function of T
+and (30) becomes an integral equation which may be solved by the same methods as (10).
+The case gn(u) = 0 is a doubly stochastic process. Therefore (30) holds for all r and one
+may take the transform to obtain
+which is the usual result for the doubly stochastic process.
+The above results can be applied to the fe-variate process of §4 when the transition matrix
+G(u) can be partitioned as
+[ 0 G22(u)\' where the vector process N2(<) does not depend on the past of the vector process N^i), given
+the past of N2(£). Equations (30) and (31) are to be interpreted as matrix equations and (32)
+becomes
+F12(a>) = {I-G&iwfl-iG&twJF^w).
+This is particularly useful when G(u) is triangular, so Nt(t) only depends on N}(t) (j = i,
+i + l,...,k). In this case the solution for i^ft_1(i) can be found from the properties of Nk(t).
+The solution for Nk_2{t) from the properties of N^^t) and Nk(t) and so on recursively solving
+each one by applying the methods of this section.
+6. APPLICATIONS
+The object of this study is to produce a class of theoretical models which may be applicable to a variety of problems. We have concentrated on the second-order properties since
+these are most amenable to data analysis for testing goodness of fit. Some possible applications are suggested.
+The self-exciting process is a possible epidemic model in large populations in so far as the
+occurrence of a number of cases increases the probability of further cases. The mutually
+exciting processes could provide models for epidemics in which different types of cases are
+considered (children, adults, animals) and for associated diseases such as shingles and
+chicken pox. Other applications might be in complex equipment: for example, the computer
+(Lewis, 1964) and the human body, as a model of neuron firing (Coleman & Gastwirth,
+1969). Another application might be to the emission of particles from a radiating body
+which is excited by impact of other particles.
+REFERENCES
+BARTLETT, M. S. (1963a). Statistical estimation of density functions. Sankhya A 25, 245-54.
+BARTLETT, M. S. (19636). The spectral analysis of point processes. J. R. Statist. Soc. B 25, 264-96.
+BABTLETT, M. S. (1964). The spectral analysis of two-dimensional point processes. Biometrika 51,
+299-311.
+COLEMAN, R. & GASTWTRTH, J. L. (1969). Some models for interaction of renewal processes related to
+neuron firing. J. Appl. Prob. 6, 59-73.
+Cox, D. R. & LEWIS, P. A. W. (1966). The Statistical Analysis of Series of Events. London: Methuen.
+LEWIS, P. A. W. (1964). A branching Poisson process model for the analysis of computer failure
+patterns. J. R. Statist. Soc. B 26, 398-456.
+MAYERS, D. F. (1962). Chapters 11 to 14 in Numerical Solution of Ordinary and Partial Differential
+Equations, edited by L. Fox. London: Pergamon.
+VERE-JONES, D. (1970). Stochastic models for earthquake occurrence. J. R. Statist. Soc. B 32, 1-62.
+[Received April 1970. Revised June 1970]
+Some key words: Point process; Self-exciting point process; Spectrum of point process; Covariance
+density.

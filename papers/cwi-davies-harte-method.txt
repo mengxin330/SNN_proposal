@@ -1,0 +1,969 @@
+C e n t r u m v o o r W i s k u n d e e n I n f o r m a t i c a
+PNA
+Probability, Networks and Algorithms
+Probability, Networks and Algorithms
+On spectral simulation of fractional Brownian motion
+A.B. Dieker, M.R.H. Mandjes
+REPORT PNA-R0305 MAY 31, 2003
+
+CWI is the National Research Institute for Mathematics and Computer Science. It is sponsored by the
+Netherlands Organization for Scientific Research (NWO).
+CWI is a founding member of ERCIM, the European Research Consortium for Informatics and Mathematics.
+CWI's research has a theme-oriented structure and is grouped into four clusters. Listed below are the names
+of the clusters and in parentheses their acronyms.
+Probability, Networks and Algorithms (PNA)
+Software Engineering (SEN)
+Modelling, Analysis and Simulation (MAS)
+Information Systems (INS)
+Copyright © 2003, Stichting Centrum voor Wiskunde en Informatica
+P.O. Box 94079, 1090 GB Amsterdam (NL)
+Kruislaan 413, 1098 SJ Amsterdam (NL)
+Telephone +31 20 592 9333
+Telefax +31 20 592 4199
+ISSN 1386-3711
+
+On spectral simulation of fractional Brownian motion
+A. B. Dieker and M. Mandjes
+CWI
+P.O. Box 94079
+1090 GB Amsterdam, the Netherlands
+and
+University of Twente
+Faculty of Mathematical Sciences
+P.O. Box 217
+7500 AE Enschede, the Netherlands
+ABSTRACT
+This paper focuses on simulating fractional Brownian motion (fBm). Despite the availability of several exact
+simulation methods, attention has been paid to approximate simulation (i.e., the output is approximately fBm),
+particularly because of possible time savings. In this paper, we study the class of approximate methods that
+are based on the spectral properties of fBm’s stationary incremental process, usually called fractional Gaussian
+noise (fGn). The main contribution is a proof of asymptotical exactness (in a sense that is made precise) of
+these spectral methods. Moreover, we establish the connection between the spectral simulation approach and
+a widely used method, originally proposed by Paxson, that lacked a formal mathematical justification. The
+insights enable us to evaluate the Paxson method in more detail. It is also shown that spectral simulation is
+related to the fastest known exact method.
+2000 Mathematics Subject Classification: 65C05, 62M15
+Keywords and Phrases: spectral simulation, fractional Brownian motion, Paxson method, Davies and Harte
+method, fast Fourier transform, stochastic integration
+Note: Part of this work was done while A. B. Dieker was with the Vrije Universiteit Amsterdam. His research
+was supported by the Netherlands Organization for Scientific Research (NWO) under grant 631.000.002.
+1. Introduction
+Fractional Brownian motion (fBm) is a widely used Gaussian process with a variety of applications,
+e.g. in communications engineering, (geo)physics, finance, bioengineering and fractal imaging. Therefore, simulation of fBm has drawn a lot of attention. Although it is possible to generate a discrete-time
+realization of fBm (‘exact’ simulation), many ‘approximate’ methods have been proposed as alternatives to exact simulation. Each of these methods has its own advantages and drawbacks.
+Among the approximate simulation methods, spectral techniques have become quite popular in
+the recent past. Spectral methods can be used for simulating stationary processes. In the Fourier
+filtering method by Saupe [14, pp. 93–94], the spectral approach is used for approximating fBm. By
+construction, the resulting sample is a good approximation for fBm in the spectral domain. However,
+some problems arise the time domain; fBm is a non-stationary process, while the approximating Saupe
+sample is stationary. This problem is circumvented in the spectral method by Yin [17] by simulating
+the stationary increments of fBm, known as fractional Gaussian noise (fGn). Yin’s approach is closely
+related to the family of spectral simulation methods that is analyzed in the present paper — see also
+[1, 9].
+The connections between spectral and related methods are not so transparent, and it is in some
+cases not even clear why the produced samples should be a good approximation for realizations of
+fGn or fBm. Moreover, it is very difficult to develop a fair criterion for evaluation of the approximate methods; one must trade off accuracy and efficiency (speed). Most accuracy analyses include the
+statistical estimation or testing of the samples [11, 12]. As we will see, these tests may be misleading.
+In this paper, we show that the spectrally simulated samples are (in some sense) asymptotically
+exact. Moreover, we establish the links between the spectral approach and the method proposed
+by Paxson [12]. This enables us to conclude that Paxson samples are also asymptotically exact. In
+addition, it makes it possible to study the mean square error at each sample point and the covariance
+structure of the approximating sample.
+The paper is organized as follows. Section 2 consists of the preliminaries: the introduction of fBm
+and fGn, and a brief review of exact generation of fGn. Since fGn is the incremental process of fBm,
+a discretized realization of fBm is then obtained from this sample by taking cumulative sums. Some
+background on spectral densities is also provided in Section 2. The main results of this paper are
+presented in Section 3. The intuitively plausible fact is proved that spectrally simulated samples are
+(in a sense that will be made precise) asymptotically exact, and the connections between the different
+spectral methods are established. The error analysis and the numerical comparison of the approximate
+covariances are the topic of Section 4.
+2. Preliminaries
+2.1 Definitions
+In the pioneering work of Mandelbrot and van Ness [10], fBm was originally defined as a stochastic
+integral with respect to ordinary Brownian motion. The family of fractional Brownian motions is
+indexed by a single parameter H ∈ (0, 1), which is called the self-similarity or Hurst parameter.
+Standardized fBm with Hurst parameter H is a centered continuous-time Gaussian process BH (·)
+with covariance function
+ρ(s, t) ≡ EBH (s)BH(t) = 1
+2
+{t2H + s2H − |t − s|2H } (2.1)
+for s, t ≥ 0. Note that BH reduces to an ordinary Brownian motion for H = 1/2.
+The incremental process of fractional Brownian motion is a stationary discrete-time process and
+is called fractional Gaussian noise (fGn). We define the fractional Gaussian noise X = {Xk : k =
+0, 1, . . .} by
+Xk := BH (k + 1) − BH (k).
+It is clear that any Xk has a standard normal distribution; the complication, however, is the covariance
+between the Xk. To be precise, straightforward computations show that the autocovariance function
+γ(·) of X is given by
+γ(k) ≡ EXn+kXn = 1
+2
+[|k − 1|2H − 2|k|2H + |k + 1|2H ] (2.2)
+for k ∈ Z. By writing down the Taylor expansion of the function h(x) = (1 − x)2H − 2 + (1 + x)2H at
+the origin and noting that γ(k) = 1
+2 k2H h(1/k) for k ≥ 1, it is easily seen from (2.2) that
+γ(k) ∼ H(2H − 1)|k|2H−2 (2.3)
+as |k| → ∞. Therefore, the autocovariance function is non-summable for H > 1/2. This phenomenon
+is called long-range dependence, indicating (relatively) slow decay of the covariance function. The
+present paper covers both the long-range dependent case, i.e. H > 1/2, and the short-range dependent
+case H ≤ 1/2. However, we often focus on the long-range dependent case, since it is the worst case
+for the spectral approach (as will become clear in Section 3).
+
+2. Preliminaries 3
+2.2 Exact simulation of fractional Brownian motion
+There exist algorithms for simulating general stationary Gaussian processes with a given autocovariance function. Evidently, these algorithms can be used for generating fGn. An fBm sample is then
+found by computing the cumulative sums of this fGn sample. The so-called self-similarity property
+(i.e., the fact that BH (at) has the same finite-dimensional distributions as aH BH (t)) can be used to
+obtain a sample on an arbitrary equispaced grid.
+The method proposed by Hosking [7] simulates the sample recursively, conditioning on all so far
+generated points. The required computation time is of order N 2 when N sample points are needed.
+The Cholesky method [1] uses the Cholesky decomposition of the covariance matrix, which results in
+an order N 3 algorithm. As pointed out in [5], both methods implicitly compute the same matrix,
+but the Hosking method achieves that more efficiently. However, the Cholesky method can also be
+applied to the covariance matrix of fBm, in which case the methods work differently.
+In the specific case of fGn, another exact method is the method first mentioned by Davies and
+Harte [4]. It is of order N log N , i.e., even faster than the Hosking method. The method was later
+simultaneously generalized by Dietrich and Newsam [6] and Wood and Chan [16]. The algorithm
+is based on the fact that the covariance matrix of a stationary discrete-time Gaussian processes
+can be embedded in a so-called circulant matrix. This latter matrix should be positive definite for
+the algorithm to work, which is indeed the case for fGn. The constructed circulant matrix can
+be diagonalized explicitly, and the computations are done efficiently with the so-called Fast Fourier
+Transform (FFT) algorithm. To be able to establish the connections between this method and the
+spectral simulation approach of Section 3, we describe the algorithm in more detail.
+With the Davies and Harte method, an fGn sample of size N can be constructed as follows:
+• Define αk := γ(k) for k = 0, . . . , N − 1, αN := 0 and αk := γ(2N − k) for k = N + 1, . . . , 2N − 1.
+Compute the (discrete) Fourier transform (λk)2N−1
+k=0 of (αk)2N−1
+k=0 with the FFT algorithm. Recall
+that the Fourier transform of (αk)j−1
+k=0 is given by
+λn =
+j−1∑
+k=0
+αk exp
+(
+2πi nk
+j
+)
+(2.4)
+for n = 0, . . . , j − 1. When j is a power of two, the number of calculations required by the FFT
+algorithm is of order j log2(j); a considerable gain in speed compared to the straightforward
+calculation of order j2. The λj are real by construction and they are non-negative in the fGn
+case when αN is set to γ(N ), see [3]. However, we set αN = 0 for reasons that become clear in
+Section 3. This has no influence on the resulting fGn sample as long as the λj are non-negative
+(in practice, this is satisfied for any reasonable sample size N ).
+• The output fGn sample is Z0, . . . , ZN−1, where the sequence (Zk)2N−1
+k=0 is the Fourier transform
+of
+wk :=
+
+
+
+√ λk
+2N U (0)
+k k = 0;
+√ λk
+4N
+(
+U (0)
+k + iU (1)
+k
+)
+k = 1, . . . , N − 1;
+√ λk
+2N U (0)
+k k = N ;
+√ λk
+4N
+(
+U (0)
+2N−k − iU (1)
+2N−k
+)
+k = N + 1, . . . , 2N − 1,
+(2.5)
+with U (i)
+k i.i.d. standard normal random variables for k = 0, . . . , 2N − 1, and mutually independent vectors U (0) and U (1).
+Note that ZN , . . . , Z2N−1 is also an fGn sample, but this sample is not independent of the sample
+Z0, . . . , ZN−1, nor is Z0, . . . , Z2N−1 an fGn sample. The reader may easily check that Z is real
+by construction.
+
+In addition to these exact methods, several approximation algorithms have been proposed. Some
+of them can be found in [5], including spectral simulation. The Conditionalized Random Midpoint
+Displacement method [11] is notable for its accuracy, but we remark that the latter method does not
+produce stationary samples to approximate fGn.
+2.3 Spectral densities
+Instead of analyzing a stochastic process in the time domain, one could consider the so-called spectral
+or frequency domain. It turns out that the so-called spectral density characterizes all frequency
+information of stationary processes (see e.g. [13]). This spectral density is computed as follows for
+frequencies −π ≤ λ ≤ π:
+f (λ) :=
+∞∑
+j=−∞
+γ(j) exp(ijλ), (2.6)
+where γ(·) denotes the autocovariance function (e.g. of fGn (2.2)). The autocovariance function is
+recovered by applying the inversion formula
+γ(j) = 1
+2π
+∫ π
+−π
+f (λ) exp(−ijλ)dλ. (2.7)
+In this paper, we are particularly interested in the spectral density of fractional Gaussian noise. It
+can be seen [15] that this density is given by
+f (λ) = 2 sin(πH)Γ(2H + 1)(1 − cos λ) [|λ|−2H−1 + B(λ, H)] , (2.8)
+where Γ(·) denotes the Gamma function and
+B(λ, H) :=
+∞∑
+j=1
+{(2πj + λ)−2H−1 + (2πj − λ)−2H−1} (2.9)
+for −π ≤ λ ≤ π.
+Unfortunately, it is not known how this can be simplified further. However, a quite useful result is
+the proportionality of this spectral density to |λ|1−2H near λ = 0, checked by noting that 1 − cos(λ) =
+1
+2 λ2 + O(λ4) as |λ| → 0. Therefore, f has a pole at zero for H > 1/2. For H < 1/2, f is nondifferentiable at zero. From Equation (2.6), it follows that a pole at zero in the spectral density
+corresponds to long-range dependence.
+To numerically evaluate the spectral density of fGn, the infinite sum in Equation (2.9) must be
+truncated. When the truncation parameter is chosen quite large, the function evaluation becomes
+computationally more demanding. Paxson [12] suggests and tests a useful approximation to overcome
+this problem. He shows that
+˜B3(λ, H) :=
+3∑
+j=1
+{(a+
+j )−2H−1 + (a−
+j )−2H−1} + (a+
+3 )−2H + (a−
+3 )−2H + (a+
+4 )−2H + (a−
+4 )−2H
+8Hπ (2.10)
+approximates f (λ) quite well, where a±
+j = 2πj ± λ.
+3. Spectral simulation, the Paxson method, and the approximate circulant method
+The idea of spectral simulation is to simulate a process in the spectral domain and transform the
+resulting sample to the time domain. Although it is not possible to obtain exact fGn or fBm samples
+by taking this approach, we will shortly see that the accuracy increases as the sample size grows.
+In the course of the exposition, it becomes clear that spectral simulation is closely related to the
+Paxson method and the Davies and Harte method. The resulting modification of the Davies and
+Harte method (which produces approximate samples, but is also faster) will be called the approximate
+circulant method.
+
+3.1 Spectral simulation
+The spectral analysis of a stationary discrete-time Gaussian process X = {Xn : n = 0, . . . , N − 1}
+shows that it can be represented in terms of the spectral density as
+Xn =
+∫ π
+0
+√ f (λ)
+π cos(nλ)dB1(λ) −
+∫ π
+0
+√ f (λ)
+π sin(nλ)dB2(λ), (3.1)
+where the equality is to be understood as equality in distribution. The two integrators are mutually
+independent (ordinary) Brownian motions. This result is called the spectral theorem; using (2.7), its
+validity is easily checked by showing that the right-hand side of (3.1) has covariance function (2.2).
+In what follows, we assume that the required sample size N is a power of two.
+We briefly interrupt the exposition to make clear how ∫ π
+0 φ(s)dB(s) should be interpreted for some
+function φ and an ordinary Brownian motion B as stochastic integrator. This will be helpful for
+establishing the result that spectrally simulated samples are (in some sense) asymptotically exact.
+The integral ∫ π
+0 φ(s)dB(s) has a natural definition when the integrand φ is a so-called simple function,
+which means that there exists a positive integer  and a strictly increasing sequence of real numbers
+(tj)
+j=0 with t0 = 0 and t = π, as well as a bounded sequence of real numbers (φj)−1
+j=0 such that φ(s)
+can be written as φ(s) = φj for s ∈ (tj, tj+1] (the value at 0 is an arbitrary real number). For such a
+simple function φ, the stochastic integral has the following definition:
+∫ π
+0
+φ(s)dB(s) :=
+−1∑
+j=0
+φj(B(tj+1) − B(tj)). (3.2)
+It is known that every square integrable function ψ can be written as a limit in L2 (the space of all
+Lebesgue square integrable functions on [0, π]) of a sequence (ψm) of simple functions; the subset of
+simple functions is dense in L2. Then there exists a random variable Z such that
+lim
+m→∞ E
+[(
+Z −
+∫ π
+0
+ψm(s)dB(s)
+)2]
+= 0. (3.3)
+This random variable is unique in the sense that another random variable that satisfies (3.3) is almost
+sure equal to Z. This makes it possible to take this Z as the definition of the stochastic integral∫ ψ(s)dB(s). We refer to the type of convergence (3.3) as convergence in L2–norm. Moreover, it can
+be shown that Z is independent of the approximating sequence (ψm)m. We will need the following
+implication of this observation: when a given sequence of simple functions (ψm)m converges in L2–
+norm to ψ, the corresponding sequence of stochastic integrals (∫ ψm(s)dB(s))
+m converges in L2–norm
+to ∫ ψ(s)dB(s). More on stochastic integration can be found in any textbook on stochastic calculus,
+e.g. [8].
+Spectral simulation is based on approximating Equation (3.1); the integrand is replaced by a simple
+function. Define ξn(λ) := √f (λ)/(2π) cos(nλ) and fix some integer . After setting tk = πk/ for
+k = 0, . . . ,  − 1, we define a simple function ξ()
+n on [0, π] for 0 ≤ n ≤ N − 1 by
+ξ()
+n (λ) :=
+√ f (t1)
+π cos(nt1)1{0}(λ) +
+−1∑
+k=0
+√ f (tk+1)
+π cos(ntk+1)1(tk,tk+1](λ). (3.4)
+Let θ()
+n (λ) be defined as ξ()
+n (λ), but with the cosine terms replaced by sine terms. The first integral
+in (3.1) is approximated by ∫ π
+0 ξ()
+n (λ)dB1(λ), which can be computed using Equation (3.2). Since a
+similar approximation can be made for the second integral, we arrive at the following approximation
+ˆX ()
+n of Xn:
+ˆX ()
+n :=
+−1∑
+k=0
+√ f (tk+1)
+
+[
+cos(ntk+1)U (0)
+k − sin(ntk+1)U (1)
+k where U (i)
+k are again i.i.d. standard normal random variables for k = 0, . . . ,  − 1. The two vectors
+U (0) and U (1) should also be mutually independent, since B1 and B2 are independent as well.
+It should be noted that for H > 1/2, we approximate the spectral density by functions that have
+no pole at 0. As already pointed out, this pole is equivalent to long-range dependence. Hence, we
+approximate a long-range dependent process by a short-range dependent process. Still, we may obtain
+a sample with a covariance structure that approximates the structure determined by (2.2) and (2.3)
+very well. This issue is explored further in Section 4.
+The FFT can be used to calculate (3.5) efficiently. To this end, we define the sequence (ak)k=0,...,2−1
+by
+ak :=
+
+
+
+0 k = 0;
+1
+2
+(
+U (0)
+k−1 + iU (1)
+k−1
+) √f (tk)/ k = 1, . . . ,  − 1;
+U (0)
+k−1
+√f (tk)/ k = ;
+1
+2
+(
+U (0)
+2−k−1 − iU (1)
+2−k−1
+) √f (t2−k)/ k =  + 1, . . . , 2 − 1.
+(3.6)
+Using (2.4), one can check that the Fourier transform of (ak) is real and equals (3.5).
+Since ξ()
+n approximates ξn better for larger , an interesting question is whether the approximate
+sample converges to an exact sample as  → ∞. However, different types of convergence of random
+variables and processes exist; it is at first sight not clear in what sense the approximate sample
+converges. In the remainder of this subsection, we deal with this convergence issue.
+Convergence We start by deriving the covariance structure of ˆX (). From (3.5) it follows that the
+covariance between ˆX ()
+m and ˆX ()
+n for n, m = 0, . . . , N − 1 is given by
+Cov( ˆX ()
+m , ˆX ()
+n ) =
+−1∑
+k=0
+f (tk+1)
+ cos((m − n)tk+1), (3.7)
+which depends only on m−n. Hence, the spectral simulation method produces stationary approximate
+samples. A more detailed numerical analysis of the covariance structure is deferred to Section 4.
+It is readily checked with (2.7) that Cov( ˆX ()
+m , ˆX ()
+n ) converges to γ(|m − n|) as  → ∞. From
+this fact, it is not difficult to deduce that the finite-dimensional distributions of ˆX () converge in
+distribution to the corresponding finite-dimensional distributions of X as  → ∞. However, we will
+not prove this, since we can prove an even stronger convergence result: every sample point ˆX ()
+n
+converges in L2–norm to the corresponding exact sample point Xn as  → ∞.
+The proof of this fact is based on the definition of the stochastic integral appearing in (3.1). Because
+f is integrable, the function ξn is certainly square integrable for 0 ≤ n ≤ N − 1. Recall that the
+discussion on stochastic integration showed that if the sequence of simple functions (ξ()
+n ) satisfies,
+for fixed 0 ≤ n ≤ N − 1,
+lim
+→∞
+∫ π
+0
+[
+ξn(λ) − ξ()
+n (λ)
+]2
+dλ = 0, (3.8)
+then ∫ π
+0 ξ()
+n (λ)dB1(λ) converges in L2–norm to ∫ π
+0 ξn(λ)dB1(λ) as  → ∞. It is indeed true that (3.8)
+holds; a similar result holds for the second integrand of (3.1). A proof of these facts can be found in
+the appendix. By the independence of B1 and B2, we deduce that every sample point ˆX ()
+n converges
+to Xn in L2–norm, i.e., in mean square sense.
+Since the ‘error’ ˆX ()
+n −Xn is a centered Gaussian variable for every n (with a variance that decays to
+zero in ), we have E| ˆX ()
+n − Xn|2p = Cp(E| ˆX ()
+n − Xn|2)p for some constant Cp > 0 depending only on
+p. Thus, ˆX ()
+n converges to Xn in Lp–norm for every p ≥ 1! Because of the normality, this is equivalent to convergence in probability. This convergence of the individual sample points is readily extended to
+a joint convergence result: the finite-dimensional distributions of ˆX () converge in probability to the
+corresponding finite-dimensional distributions of X as  → ∞.
+An interesting question is at what rate the convergence takes place. By the way the stochastic
+integral is constructed, this rate is related to the rate of convergence of (3.8) and its θn-counterpart.
+Since the spectral density is proportional to |λ|1−2H near λ = 0, we observe that by monotone
+convergence:
+σ2
+ˆX ()
+n −Xn
+= ‖ξn − ξ()
+n ‖2 + ‖θn − θ()
+n ‖2
+≥
+∫ π/
+0
+(√ f (λ)
+2π cos(nλ) −
+√ f (π/)
+2π cos(nπ/)
+)2
+dλ
+∼ CH
+∫ π/
+0
+[
+λ1/2−H − (π/)1/2−H ]2
+dλ
+= CH π1−2H
+( 1
+4 − 4H − 1
+3/2 − H + 1
+2
+)
+2H−2,
+where CH denotes some constant. Thus, the rate of convergence is quite slow.
+Since the length of the output sequence of the FFT algorithm applied to (3.6) must be at least the
+sample size N , the smallest possible choice for  is N/2, although better results are obtained for larger
+. For  = N/2, the spectral simulation approach is closely related to the Paxson method, as will be
+made clear in the next subsection.
+3.2 The Paxson method
+Paxson [12] proposes a rather intuitive method for simulating fractional Gaussian noise. By studying
+the output statistically, he tests if the resulting samples have indeed the desired properties. Unfortunately, the paper lacks a thorough justification of the proposed procedure, and it remains unclear
+why the obtained sample should be (close to) Gaussian.
+However, with the formulas above, it is possible to make the arguments precise. In the Paxson
+method, the approximate fGn sample is the Fourier transform of
+bk :=
+
+
+
+0 k = 0;√ Rkf (tk)
+N exp(iΦk) k = 1, . . . , N/2;
+b∗
+N−k k = N/2 + 1, . . . , N − 1,
+where Rk are independent exponentially distributed random variables with mean 1 for k ≥ 1, and the
+asterisk denotes the complex conjugate. Besides ΦN/2, which is set to zero, the Φk are independent
+uniformly distributed random variables on [0, 2π] for k ≥ 1, also independent of the Rk. In this case,
+tk equals 2πk/N . Note that the obtained sample is real by construction.
+Because Rk is exponentially distributed with mean 1, √2Rk exp(iΦk) has the same distribution as
+U (0)
+k + iU (1)
+k , where U (0)
+k and U (1)
+k are independent standard normal random variables in the usual
+notation. This fact is also used in the well-known Box-Muller algorithm to simulate Gaussian random
+variables (e.g., [1]).
+Let us now compare this with the spectral simulation method for  = N/2. In that case, the sample
+is the Fourier transform of (see (3.6))
+b′
+k :=
+
+
+
+0 k = 0;√ f (tk)
+2N
+(
+U (0)
+k−1 + iU (1)
+k−1
+)
+k = 1, . . . , N/2 − 1;
+√ 2f (tk)
+N U (0)
+k−1 k = N/2;
+√ f (tk)
+2N
+(
+U (0)
+N−k−1 − iU (1)
+N−k−1
+)
+k = N/2 + 1, . . . , N − 1, where the U (i)
+k have their usual meaning. At this point it becomes clear what the relation between
+the spectral method and the Paxson method is; by comparing bk to b′
+k, we see that the value of bN/2
+is the only difference (of course, the indexing of the random variables U (i) differs, but this has no
+impact). However, this effect will vanish for ‘large’ N ; it is readily checked that it does not affect the
+convergence result of the previous subsection. Thus, the accuracy of the Paxson method increases
+with the sample size N , and is even exact as N → ∞ in the sense that each sample point converges
+to an ‘exact’ sample point in probability. This new result is the consequence of studying the Paxson
+method as a special case of the spectral simulation approach.
+We can now argue that Paxson’s suggestion to set ΦN/2 = 0 is not useful, since this destroys the
+normality of bN/2, which is reflected in every sample point, cf. (2.4). This is the reason that Paxson
+finds in some cases that the resulting sample points have a ‘nearly’ normal distribution. Therefore,
+we set
+bN/2 =
+√ f (tN/2)
+2N U (0)
+N/2,
+although (as earlier) the imaginary part has no influence on the sample. In the remaining of this
+paper, we call this improved Paxson method simply the Paxson method.
+The method is faster than the Davies and Harte method, although still of order N log(N ). This is
+because the Paxson method requires just one Fourier transform of a sequence of size N , instead of
+two transforms of size 2N . Hence, the Paxson method is approximately four times faster than the
+exact Davies and Harte method, provided that N is large. It may thus offer a good alternative to
+exact simulation when large sample sizes are required. Empirical observations show that the Paxson
+method is slightly less than three times faster for N = 215 when the Paxson approximation for the
+spectral density (2.10) is used; apparently the asymptotic regime is not reached yet. A more detailed
+runtime comparison is made in [5].
+The fBm samples produced with Paxson fGn samples have the special property that the end point
+is always 0. This property is easily seen by using the definition of the FFT transform (2.4):
+N−1∑
+n=0
+N−1∑
+k=0
+bk exp
+(
+2πi nk
+N
+)
+=
+N−1∑
+k=0
+bk
+N−1∑
+n=0
+exp
+(
+2πi nk
+N
+)
+= N b0 = 0.
+This highly undesirable property of Paxson fBm samples can be regarded as a fractional Brownian
+bridge-effect.
+Having recognized that the Paxson method equals the spectral simulation method with  = N/2,
+a natural question is what can be said about spectral simulation with  = N . The next subsection
+shows that there is a connection with the Davies and Harte method.
+3.3 The approximate circulant method; connection with the Davies and Harte method
+In this subsection, we make the remarkable observation that the spectral simulation approach is
+related to the circulant diagonalization algorithm of Davies and Harte. In that algorithm, the λk are
+calculated with (2.4), which can be rewritten as
+λk =
+N−1∑
+j=0
+γ(j) exp
+(
+2πi jk
+2N
+)
++
+N−1∑
+j=1
+γ(j) exp
+(
+2πi (2N − j)k
+2N
+)
+=
+N−1∑
+j=−N+1
+γ(j) exp
+(
+2πi jk
+2N
+)
+. (3.10)
+Letting tk = πk/N , we may approximate this by replacing the finite sum by an infinite sum
+∞∑
+j=−∞
+γ(j) exp(ijtk) when N is ‘large’. Note that this is just the spectral density (2.6). In that case, we approximate λk
+with f (tk) for k = 0, 1, . . . , N and with f (t2N−k) for k = N + 1, . . . , 2N − 1. To avoid problems with
+the pole, f (0) has to be approximated by a finite value. Since we can compute λ0 directly from (3.10)
+using (2.2), the choice f (0) = λ0 = N 2H − (N − 1)2H seems justified.
+Instead of using the exact λk, we investigate what happens when the approximations f (tk) are used
+in the Davies and Harte algorithm to generate a sample. The FFT is then applied to (see (2.5))
+ck :=
+
+
+
+√ f (tk)
+2N U (0)
+k k = 0;
+√ f (tk)
+4N
+(
+U (0)
+k + iU (1)
+k
+)
+k = 1, . . . , N − 1;
+√ f (tk)
+2N U (0)
+k k = N ;
+√ f (t2N −k)
+4N
+(
+U (0)
+2N−k − iU (1)
+2N−k
+)
+k = N + 1, . . . , 2N − 1.
+(3.11)
+The first N coefficients of the Fourier transform constitute an approximate fGn sample. Because the
+only difference with the Davies and Harte method (that was based on a circulant matrix) is the use of
+approximate λk, we will refer to this method as approximate circulant method. The input coefficients
+(ck) closely resemble (3.6) with  = N ; the differences are the coefficients for k = 0 and k = N . Again,
+the effects of this difference vanish as the sample size N grows, which indicates that the method is
+asymptotically exact in the sense described earlier.
+Moreover, we can measure now how the spectral simulation method with  = N performs in the
+spectral domain for finite N : it can be calculated what ‘spectral’ error is made by using the spectral
+density (2.6) rather than the λk. A further investigation of this issue is found in the next section.
+By approximating λk with the value of the spectral density at tk, the number of applications of the
+FFT on a sequence of size 2N is halved. Instead, the spectral density is evaluated in 2N points; this
+is done in order N time. Therefore, the spectral simulation method with  = 2N is theoretically twice
+as fast as the exact Davies and Harte method for large N . However, the method is in practice only a
+bit faster than the exact method for reasonable sample sizes.
+This observation indicates that it makes no sense to increase  further to 2N in the spectral simulation method. Still, sometimes (e.g. in time series analysis) the autocovariances of some relevant
+process are unknown, although the spectral density has some known closed form. Then, it is an
+interesting option to simulate such a process with the approximate spectral simulation method with
+ = 2N . Note that the proof in the appendix indicates that the convergence result holds for any
+stationary Gaussian process with spectral density f (·).
+3.4 Improvements
+We have seen that the function ξ()
+n defined in (3.4) converges to ξn in the sense of (3.8), which led
+to all theoretical results in the current section. A natural question is if this simple function is the
+only possible choice for which this type of convergence holds. A glance at the proof indicates that
+the answer is negative. The function ξ()
+n was constructed by evaluating the spectral density in the
+rightmost point of each interval of the grid. Looking at (3.7), another interesting possiblity is to
+replace f (tk+1)/ by
+∫ tk+1
+tk
+f (λ)
+π dλ. (3.12)
+Unfortunately, it depends on the spectral density f (·) whether this integral can be computed (efficiently). In the fGn case, this integral cannot be computed directly, but should be approximated (e.g.,
+by integrating f numerically). For k = 0, the integral can be approximated accurately by replacing
+f (λ) by its Taylor expansion sin(πH)Γ(2H + 1)λ1−2H , cf. (2.8).
+Instead of using computationally intensive numerical integration techniques to calculate (3.12), it
+is also possible to interpolate f (·) linearly between the grid points (this is impossible for k = 0 when
+
+H > 1/2 because of the pole at 0, but the Taylor based approximation can then be used). This variant
+is similar to the approach described in Section 3.1; the spectral density is evaluated at the middle
+point of each interval on the grid, instead of the rightmost point.
+These possibilities will not be investigated in the remaining part of this paper; we will focus on the
+Paxson and the approximate circulant method.
+4. Evaluation of the methods
+4.1 Error analysis
+As already pointed out in the preceding section, the connection between the Davies and Harte method
+and the approximate circulant method is useful to perform an error analysis.
+Define the ‘spectral’ error σ2
+k for k > 0 by
+σ2
+k :=
+
+
+√
+√
+√
+√
+∞∑
+j=−∞
+γ(j) exp(πijk/N ) −
+√
+√
+√
+√ N−1∑
+j=−N+1
+γ(j) exp(πijk/N )
+
+
+2
+. (4.1)
+For this moment, we will neglect the notational technicalities involving the factor √2N instead of√4N in wN and cN . Then, σ2
+k is the variance of wk − ck, up to a constant scaling factor, see (2.5)
+and (3.11).
+Denote the approximate circulant sample by ˇX and the exact Davies and Harte sample by X. It is
+readily checked that the ‘time domain’ error ˇXn − Xn is a centered Gaussian variable with variance
+σ2
+ˇXn−Xn = 1
+2N
+2N−1∑
+k=0
+σ2
+k,
+which does not depend on n. The convergence result of the previous section guarantees that σ2
+ˇXn−Xn
+decays to 0 as N → ∞.
+Notice that this observation concerns the fGn sample, but that it is also interesting to calculate the
+variance σ2
+ˇYn−Yn
+of the error ˇYn − Yn = ∑n
+j=0( ˇXj − Xj) of the corresponding fBm sample. It may be
+checked that σ2
+ˇYn−Yn
+depends on n and is given by
+σ2
+ˇYn−Yn = 1
+2N
+2N−1∑
+k=0
+σ2
+k
+
+
+
+
+
+n∑
+j=0
+cos2(πjk/N )
+
+
+2
++
+
+
+n∑
+j=0
+sin2(πjk/N )
+
+
+2
+
+ .
+Since σ2
+k is, in the presence of a pole in the spectral density (H > 1/2), large when k is either small
+or large, the term between the square brackets is approximately n2 for these values of k. This implies
+that the expected square error of the fBm sample σ2
+ˇYn−Yn
+is proportional to n2 for large sample sizes,
+i.e. σ2
+ˇYn−Yn
+≈ Cn2σ2
+ˆXn−Xn
+for some positive constant C. Since σ2
+ˆXn−Xn
+converges to zero as N → ∞,
+the expected square error of a fBm sample point at fixed n converges to zero as well.
+4.2 Numerical analysis of the autocovariance function
+Since the autocovariance function characterizes a stationary Gaussian sample uniquely, insight into
+the performance of the spectral simulation method can be gained by comparing the approximate
+covariances to the desired covariances.
+We have already seen that spectrally simulated fGn samples are stationary. This holds also for
+Paxson and approximate circulant samples, for which the autocovariance functions ˜γP resp. ˜γAC are
+given by
+˜γP(k) =
+N/2−1
+∑
+j=1
+f (2πj/N )
+N/2 cos(2πjk/N ) + f (π)
+2N (−1)k (4.2)
+
+4. Evaluation of the methods 11
+0 50 100 150 200 250
+0.0 0.2 0.4 0.6 0.8
+0 50 100 150 200 250
+0.2 0.4 0.6 0.8 1.0
+Autocovariance function of the Paxson method
+Autocovariance function of the approximate circulant method
+γ(k) γ(k)
+k
+k
+Figure 1: The autocovariance function of the Paxson method and the approximate circulant method
+with the autocovariance function of fractional Gaussian noise (dashed) for H = 0.8.
+and
+˜γAC(k) =
+N−1∑
+j=1
+f (πj/N )
+N cos(πjk/N ) + N 2H − (N − 1)2H
+2N + f (π)
+2N (−1)k (4.3)
+for k = 0, . . . , N − 1.
+Some problems arise for the Paxson method at this point. Recall that in a sample of size N , the
+(co)variances γ(0), . . . , γ(N −1) are approximated by ˜γP(0), . . . , ˜γP(N −1). From (2.2) follows that the
+autocovariance function γ(k) decreases in k for H > 1/2, but this is not the case for the approximation
+˜γP(k), since this function is symmetrical around k = N/2.
+To illustrate this problem, the autocovariance function ˜γP is plotted together with the autocovariance function γ for H = 0.8 and N = 28 in the upper panel of Figure 1. The lower panel consists of
+the functions ˜γAC and γ.
+Besides the symmetry problem of ˜γP, the differences with the exact autocovariance function are
+relatively large; even negative covariances are present in Paxson samples for N = 28. Still, the Paxson
+method passed many tests (see Paxson [12]), even without the normality improvement of Section 3.
+It should be noticed that ˜γP approximates γ better as the sample size N increases, which is probably
+the reason for Paxson’s empirical finding that satisfactory samples are obtained for N = 215.
+According to the lower panel of Figure 1, the approximate circulant method is more promising.
+Except for high-lag autocovariances, the function ˜γAC is almost indistinguishable from γ, which will
+even improve when N → ∞.
+However, we are particularly interested in the tail behavior of ˜γAC when H > 1/2, which cannot
+be observed in Figure 1. In view of (2.3), this tail behavior is best studied on a log-log scale; for
+fGn with Hurst parameter H = 0.8, the graph of γ on a log-log scale is a straight line with slope
+2H − 2 = −0.4 for large k. This plot is given in Figure 2 for the approximate circulant method with
+H = 0.8 for N = 211 and N = 213. Since we are mainly interested in the tail behavior, the plot
+
+Autocovariance function of the approximate circulant method with N = 211
+Autocovariance function of the approximate circulant method with N = 213
+γ(k) γ(k)
+k
+k
+Figure 2: The tail of the autocovariance function of the approximate circulant method on a log-log
+scale. The dashed line is the exact autocovariance function (H = 0.80).
+of the autocovariance function starts at k = 210. We see that the exact autocovariance function is
+indeed a straight line, but that this is not the case for the autocovariance function of the approximate
+circulant method. The differences at the left end of the graph are quite small, and can presumably
+even be made smaller by implementing one of the suggested improvements of Section 3. Interestingly,
+the solid line curves upwards for the approximate circulant method. Of course, this has to do with
+the fact that a long-range dependent process is approximated by a short-range dependent process.
+If a sample of size N is needed, an obvious improvement is to take the first N elements of an
+approximate circulant sample of size 2N . This corresponds to the spectral simulation method with
+ = 2N .
+5. End notes and conclusions
+As we have seen, a convenient property of spectral simulation is the convergence in probability of the
+approximate fGn sample points to exact fGn sample points. The rate at which this convergence takes
+place and the implications for the corresponding fBm sample are interesting yet unsolved problems.
+The spectral simulation approach for one-dimensional fBm can be extended to higher dimensions
+(for appropriately defined higher dimensional fBm), for instance by the so-called turning bands method
+[17]. It should be noted that the Davies and Harte method can also be extended to higher dimensions
+[6, 16].
+The main results can be summarized as follows:
+• The described spectral simulation method provides the theoretical foundation for the Paxson
+method, which clarifies many empirical observations and leads to an important improvement of
+the method.
+• A natural extension of the Paxson method, the approximate circulant method, has a direct
+
+References 13
+connection with the exact Davies and Harte method. The obtained insights show that the
+accuracy of both methods increases as the sample size grows, and that the methods are even
+asymptotically exact in the sense that the expected square error at each sample point converges
+to zero.
+• It is possible to perform an error analysis for the approximate circulant method. This shows
+that the expected square error of the corresponding fBm sample at sample point n grows approximately like n2.
+• Whereas the errors in the covariances are quite large for the Paxson method (although they
+vanish asymptotically), the autocovariance function of the approximate circulant method is
+visually almost indistinguishable from the exact autocovariance function. Still, this autocovariance function does not show the desired hyperbolical tail behavior when H > 1/2. In fact, it is
+theoretically impossible to obtain this structure in spectrally simulated samples, since spectral
+density of fGn is approximated by functions without pole at 0.
+Appendix: Proof of (3.8)
+We keep n fixed throughout the proof, and start by showing that θ()
+n converges to θn in L2–norm as
+ → ∞, where θn(λ) =
+√ f (λ)
+2π sin(nλ). Note that f has a pole at 0, but that the sine-term compensates
+this pole. Thus, θn(λ) is continuous on [0, π] for every Hurst parameter 0 < H < 1. It follows that
+[θn(λ)]2 is Riemann integrable on [0, π], which implies that lim→∞
+∫ π
+0
+[
+θ()
+n (λ)
+]2
+dλ = ∫ π
+0 [θn(λ)]2 dλ.
+Since θ()
+n (λ) → θn(λ) for every 0 ≤ λ ≤ π as  → ∞, we have the desired convergence of θ()
+n to θn in
+L2–norm, see for instance Theorem 4.5.4 of Chung [2].
+More care is needed to prove a similar fact for the ξn functions. When 0 < H ≤ 1/2, the same
+reasoning as above applies. However, ξn has a pole at 0 for 1/2 < H < 1. Still, f is Riemann integrable
+because f is a spectral density; in fact, ∫ π
+0 f (λ)dλ = π. For any > 0, this makes it possible to find
+a δ > 0 (independent of ) such that
+∫ δ
+0
+[
+ξ()
+n (λ) − ξn(λ)
+]2
+dλ ≤
+∫ δ
+0
+[
+ξ()
+n (λ) + ξn(λ)
+]2
+dλ ≤ 4
+∫ δ
+0
+[ξn(λ)]2 dλ
+≤ 4
+∫ δ
+0
+f (λ)dλ < /2,
+where the first two inequalities use the fact that ξn(λ) ≥ ξ()
+n (λ) ≥ 0 for small λ. As earlier, we have
+ξ()
+n (λ) → ξn(λ) for every δ ≤ λ ≤ π, and the Riemann integrability of [ξn(λ)]2 on [δ, π], which implies
+that lim→∞
+∫ π
+δ
+[
+ξ()
+n (λ)
+]2
+dλ = ∫ π
+δ [ξn(λ)]2 dλ. Hence, it is possible to find an  with the property
+that ∫ π
+δ
+[
+ξ()
+n (λ) − ξn(λ)
+]2
+dλ < /2 and the claim is proven.
+Note that the arguments of the proof apply for a general spectral density, not necessarily the spectral
+density of fGn.
+References
+1. S. Asmussen, Stochastic simulation with a view towards stochastic processes. Notes of a Concentrated Advance Course at MaPhySto, Aarhus, Denmark, February 1999.
+2. K. L. Chung, A Course in Probability Theory, Academic Press, San Diego, third ed., 2001.
+3. M. S. Crouse and R. G. Baraniuk, Fast, exact synthesis of Gaussian and nonGaussian longrange dependent processes. Submitted to IEEE Transactions on Information Theory, 1999.
+4. R. B. Davies and D. S. Harte, Tests for Hurst effect, Biometrika, 74 (1987), pp. 95–102.
+
+14 References
+5. A. B. Dieker, Simulation of fractional Brownian motion, Master’s thesis, Vrije Universiteit
+Amsterdam, April 2002. URL: http://www.cwi.nl/~ton.
+6. C. R. Dietrich and G. N. Newsam, Fast and exact simulation of stationary Gaussian processes
+through circulant embedding of the covariance matrix, SIAM Journal on Scientific Computing, 18
+(1997), pp. 1088–1107.
+7. J. R. M. Hosking, Modeling persistence in hydrological time series using fractional differencing,
+Water Resources Research, 20 (1984), pp. 1898–1908.
+8. I. Karatzas and S. E. Shreve, Brownian motion and stochastic calculus, Springer-Verlag, New
+York, second ed., 1991.
+9. G. Lindgren, Lectures on stationary stochastic processes, Lund University, 1999. URL:
+http://www.maths.lth.se/matstat/staff/georg.
+10. B. B. Mandelbrot and J. W. van Ness, Fractional Brownian motions, fractional noises and
+applications, SIAM Review, 10 (1968), pp. 422–437.
+11. I. Norros, P. Mannersalo, and J. L. Wang, Simulation of fractional Brownian motion
+with conditionalized random midpoint displacement, Advances in Performance Analysis, 2 (1999),
+pp. 77–101.
+12. V. Paxson, Fast, approximate synthesis of fractional Gaussian noise for generating self-similar
+network traffic, Computer Communication Review, 27 (1997), pp. 5–18.
+13. M. B. Priestley, Spectral analysis and time series, vol. 1, Academic Press, 1981.
+14. D. Saupe, Algorithms for random fractals, in The Science of Fractal Images, H.-O. Peitgen and
+D. Saupe, eds., Springer-Verlag, 1988.
+15. Y. G. Sinai, Self-similar probability distributions, Theory of Probability and its Applications, 21
+(1976), pp. 64–80.
+16. A. T. A. Wood and G. Chan, Simulation of stationary Gaussian processes in [0, 1]d, Journal
+of Computational and Graphical Statistics, 3 (1994), pp. 409–432.
+17. Z.-M. Yin, New methods for simulation of fractional Brownian motion, Journal of Computational
+Physics, 127 (1996), pp. 66–72.
